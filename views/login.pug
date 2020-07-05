@@ -1,0 +1,30 @@
+extends base
+
+block content
+    main.login
+        .login-box
+            a.btn.btn--lower.btn--border.btn--login.mb-md
+                i.fab.fa-google.fa-x1.login-box__icon
+                | 
+                | Log in using google
+
+            span.login-box__or.mb-md or
+
+            form.form.login-box__form
+                .form__group.mb-sm
+                    label.form__label(for='email') Email address
+                    input#email.form__input(type='email', placeholder='you@example.com', required)
+
+                .form__group.mb-sm
+                    label.form__label(for='password') Password
+                    input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+
+                .form__group.form__group--link.mb-md
+                    a.form__link(href="#", target="_blank") forget password?
+
+                .form__group.mb-md
+                    button.btn.btn--color-primary.btn--lower Login
+
+            .login-box__account
+                p Don't have on account? 
+                    a(href="#", target="_blank") Sign up

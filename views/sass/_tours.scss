@@ -1,0 +1,11 @@
+.tours {
+  grid-column: center-start / center-end;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  justify-items: center;
+  gap: 5rem;
+
+  margin: 15rem 0 10rem 0;
+  position: relative;
+}

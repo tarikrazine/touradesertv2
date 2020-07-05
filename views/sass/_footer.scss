@@ -1,0 +1,51 @@
+.footer {
+  grid-column: full-start / full-end;
+
+  padding: 6rem 4rem 3rem 4rem;
+  background-color: $color-grey-dark-1;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &__logo-box {
+    flex: 1;
+  }
+
+  &__side {
+    flex: 0 0 70%;
+    align-self: flex-end;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__nav {
+    list-style-type: none;
+    display: flex;
+
+    & li {
+      color: $color-grey-light-1;
+      transition: color 0.3s;
+
+      &:not(:last-child) {
+        margin-right: 1.5rem;
+      }
+
+      &:hover {
+        color: $color-grey-light-4;
+      }
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: currentColor;
+    font-size: 1.4rem;
+  }
+
+  &__copyright {
+    font-size: 1.3rem;
+  }
+}

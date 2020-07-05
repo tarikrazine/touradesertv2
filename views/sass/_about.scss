@@ -1,0 +1,20 @@
+.section-about {
+  grid-column: col-end 6 / full-end;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 1rem;
+  position: relative;
+}
+
+.shape {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url('/images/shape.svg');
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}

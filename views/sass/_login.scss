@@ -1,0 +1,47 @@
+.login {
+  grid-column: full-start / full-end;
+
+  background-color: $color-grey-light-2;
+  padding: 8rem 6rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background-color: $color-grey-light-1;
+  max-width: 55rem;
+  padding: 8rem 7rem 5rem 7rem;
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  border: 1rem solid rgba($color-primary-light, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include respond(phone) {
+    min-width: 42rem;
+    padding: 8rem 3rem 5rem 3rem;
+  }
+
+  &__icon {
+    color: $color-primary-medium;
+  }
+
+  &__or {
+    display: block;
+    font-size: 2rem;
+    color: $color-grey-dark-1;
+  }
+
+  &__account {
+    font-size: 1.6rem;
+    color: $color-grey-dark-1;
+
+    & a {
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+extends base
+
+block append head
+    script(src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js')
+    link(href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet')
+
+
+block content
+    // Tour
+    main.tour
+
+        .header-back &nbsp;
+
+        section.section-header-tour
+            .section-header-tour__hero
+                .section-header-tour__hero-overlay &nbsp;
+                img.section-header-tour__hero-img(src='/images/tour-cover-1.jpg', alt=`${tour.name}`)
+
+            h1.heading-primary.heading-primary--tour.heading-primary--light
+                span= tour.name
+
+            .section-header-tour__details
+                .section-header-tour__group
+                    .section-header-tour__detail
+                        i.far.fa-clock.fa-4x.section-header-tour__icon
+                        span= `${tour.duration} Days`
+                    .section-header-tour__detail
+                        i.far.fa-map.fa-4x.section-header-tour__icon
+                        span= tour.startLocation.description
+
+        section.section-description-tour
+            h2.heading-secondary.heading-secondary--tour.text-center= `About ${tour.name}`
+
+            - const [ para1 , para2 ]  =   tour.description.split('\n')
+            p.section-description-tour__text= para1
+            p.section-description-tour__text= para2
+
+        section.section-quick-tour
+            h2.heading-secondary.heading-secondary--tour.mb-md Quick facts
+
+            .section-quick-tour__details
+                .section-quick-tour__detail
+                    i.section-quick-tour__icon.far.fa-calendar.fa-2x
+                    span.section-quick-tour__key Date
+                    | 
+                    - const date = tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
+                    span.section-quick-tour__value= date
+
+                .section-quick-tour__detail
+                    i.section-quick-tour__icon.fas.fa-sort-amount-up.fa-2x
+                    span.section-quick-tour__key Difficulty
+                    | 
+                    span.section-quick-tour__value= tour.difficulty
+
+                .section-quick-tour__detail
+                    i.section-quick-tour__icon.far.fa-user.fa-2x
+                    span.section-quick-tour__key Participants
+                    |  
+                    span.section-quick-tour__value= tour.maxGroupSize
+
+                .section-quick-tour__detail
+                    i.section-quick-tour__icon.far.fa-star.fa-2x
+                    span.section-quick-tour__key Rating
+                    | 
+                    span.section-quick-tour__value= `${tour.ratingsAverage}/5`
+
+        section.section-guides-tour
+            h2.heading-secondary.heading-secondary--tour.mb-md Your tour guides
+            each guide in tour.guides 
+                figure.section-guides-tour__detail
+                    figcaption.section-guides-tour__user
+                        .section-guides-tour__box-img
+                            img.section-guides-tour__img(src='/images/user-tour.jpeg' alt=`${guide.name}`)
+                        .section-guides-tour__user-detail
+
+                            - const role = guide.role === 'lead-guide' ? `${guide.role.toLowerCase().split('-')[0]} guide` : `tour ${guide.role}`
+
+                            p.section-guides-tour__role= role
+                            p.section-guides-tour__name= guide.name
+
+        section.section-pictures-tour
+            each img, i in tour.images
+                figure.section-pictures-tour__picture(class=`section-pictures-tour__picture--${i + 1}`)
+                    img.section-pictures-tour__img(src=`/images/image-${i + 1}.jpg`, alt=`${tour.name}`)
+
+        section.section-map-tour
+            #map(data-locations=`${JSON.stringify(tour.locations)}`)
+
+        section.section-reviews-tour
+            figure.section-reviews-tour__reviews
+                if (tour.reviews.length === 0)
+                    h2.heading-secondary.heading-secondary--light.text-center No such review in this tour
+                each review in tour.reviews
+                    figure.section-reviews-tour__review
+                        blockquote.section-reviews-tour__text= review.review
+                        figcaption.section-reviews-tour__user-review
+                            img.section-reviews-tour__user-img(src=`/images/user-tour.jpeg`, alt=`${review.user.name}`)
+                            .section-reviews-tour__user-box
+                                p.section-reviews-tour__user-name= review.user.name
+                        .section-reviews-tour__user-ratings
+                            each star in [1, 2, 3, 4, 5]
+                                i.far.fa-star.fa-2x.section-reviews-tour__user-rating(class=`section-reviews-tour__user-rating--${review.rating >= star ? 'active' : 'inactive'}`)
+
+        section.section-booking-tour
+            .section-booking-tour__cta
+                .section-booking-tour__img.section-booking-tour__img--logo
+                    img(src="/images/logo.svg", alt="Logo")
+                img.section-booking-tour__img.section-booking-tour__img--1(src="/images/image-1.jpg", alt="Image")
+                img.section-booking-tour__img.section-booking-tour__img--2(src="/images/image-2.jpg", alt="Image")
+
+                .section-booking-tour__content
+                    h2.heading-secondary.heading-secondary--color-primary-dark What are you waiting for
+                    p.paragraph.paragraph--large= `${tour.duration} days. 1 adventure. Infinity memories. Make it your today!`
+                    button.btn.btn--color-primary.section-booking-tour--span-all-row Book tour now!

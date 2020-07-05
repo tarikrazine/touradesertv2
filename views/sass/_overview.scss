@@ -1,0 +1,13 @@
+.overview {
+  grid-column: full-start / full-end;
+  margin: 5rem 0;
+
+  display: grid;
+  grid-template-rows: 65vh min-content;
+  grid-template-columns:
+    [full-start] minmax(4rem, 1fr)
+    [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    [center-end] minmax(4rem, 1fr) [full-end];
+
+  row-gap: 5rem;
+}

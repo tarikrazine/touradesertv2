@@ -1,0 +1,31 @@
+nav.navigation
+    .navigation__logo-box
+        img(src='/images/logo.svg', alt='Touradesert Logo' class='navigation__logo')
+
+    .navigation__nav
+        ul.navigation__list
+            if (title.startsWith('Morocco'))
+                li.navigation__item.navigation__item--active
+                    a(href='/' class='navigation__link') Home
+                li.navigation__item
+                    a(href='/tours' class='navigation__link') Tours
+            else if (title === 'All tours')
+                li.navigation__item
+                    a(href='/' class='navigation__link') Home
+                li.navigation__item.navigation__item--active
+                    a(href='/tours' class='navigation__link') Tours
+            else 
+                li.navigation__item
+                    a(href='/' class='navigation__link') Home
+                li.navigation__item
+                    a(href='/tours' class='navigation__link') Tours
+
+        nav.navigation__user 
+            if user
+                a.navigation__log Log out
+                a.navigation__log.navigation__log--profile(href='/profile')
+                    img.navigation__log--img(src=`${'/images/user-tour.jpeg'}`, alt=`${user.name}`)
+                    span= `${user.name.split(' ')[0]}`
+            else
+                a.navigation__log.navigation__log--log-in(href='/login') Log in
+                a.navigation__log.navigation__log--cta(href='/sign-up') Sign up

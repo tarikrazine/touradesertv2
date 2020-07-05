@@ -1,0 +1,54 @@
+.form {
+  width: 100%;
+  height: 100%;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+
+    &--link {
+      align-items: flex-end;
+    }
+  }
+
+  &__label {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $color-grey-dark-1;
+  }
+
+  &__input {
+    display: block;
+    font-size: 1.5rem;
+    padding: 1.5rem 2rem;
+    font-style: inherit;
+    border: none;
+    background-color: rgba($color-grey-light-2, 1);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    color: inherit;
+
+    &::placeholder {
+      color: $color-grey-dark-3;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+
+      &:invalid {
+        border-bottom: 3px solid $color-primary-light;
+      }
+
+      &:valid {
+        border-bottom: 3px solid lightseagreen;
+      }
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+}

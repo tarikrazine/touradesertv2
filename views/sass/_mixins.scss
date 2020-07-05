@@ -1,0 +1,28 @@
+/* Media query mixin */
+
+@mixin respond($breakPoint) {
+  @if $breakPoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      // 600px
+      @content;
+    }
+  }
+  @if $breakPoint == tab-port {
+    @media only screen and (max-width: 56.25em) {
+      // 900px
+      @content;
+    }
+  }
+  @if $breakPoint == tab-land {
+    @media only screen and (max-width: 72em) {
+      // 1200px
+      @content;
+    }
+  }
+  @if $breakPoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      // 1800px
+      @content;
+    }
+  }
+}

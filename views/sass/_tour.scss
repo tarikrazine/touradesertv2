@@ -1,0 +1,598 @@
+// Main tour
+.tour {
+  grid-column: full-start / full-end;
+
+  display: grid;
+  grid-template-rows: 30vw max-content minmax(40vw, max-content) repeat(
+      3,
+      min-content
+    );
+  grid-template-columns:
+    [full-start] minmax(4rem, 1fr)
+    [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    [center-end] minmax(4rem, 1fr) [full-end];
+  //row-gap: 2rem;
+
+  position: relative;
+  background-image: linear-gradient(
+    145deg,
+    rgba($color-grey-light-1, 0.2),
+    rgba($color-grey-light-3, 0.3)
+  );
+  margin-top: 5rem;
+
+  @include respond(tab-port) {
+    grid-template-rows: 40vw max-content minmax(40vw, max-content) repeat(
+        3,
+        min-content
+      );
+  }
+
+  @include respond(phone) {
+    grid-template-rows: 40vh;
+  }
+}
+
+// Header background
+.header-back {
+  grid-column: full-start / full-end;
+  grid-row: 1 / 2;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+  background-image: url(/images/header-back.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  @include respond(tab-port) {
+    background-size: cover;
+    //background-position: bottom;
+  }
+}
+
+// Section header
+.section-header-tour {
+  grid-column: center-start / center-end;
+
+  position: relative;
+  margin: 5rem 0;
+  box-shadow: 0 2rem 4rem rgba($color-black, 0.4);
+  color: $color-grey-light-1;
+
+  &__hero {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  &__hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.4),
+      rgba($color-primary-dark, 0.4)
+    );
+  }
+
+  &__hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__details {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+
+    @include respond(tab-port) {
+      width: 50%;
+    }
+
+    @include respond(phone) {
+      width: 100%;
+    }
+  }
+
+  &__group {
+    display: flex;
+    justify-content: space-evenly;
+
+    @include respond(phone) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__detail {
+    color: currentColor;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+
+    @include respond(tab-port) {
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+
+    & span {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+
+  &__icon {
+    margin-right: 1rem;
+  }
+}
+
+// Section description
+.section-description-tour {
+  grid-column: full-start / full-end;
+
+  padding: 5rem 0;
+  display: flex;
+  flex-direction: column;
+
+  &__text {
+    margin-top: 3rem;
+    font-size: 1.7rem;
+    color: $color-grey-dark-2;
+    padding: 0 5rem;
+  }
+}
+
+// Section quick tour
+.section-quick-tour {
+  grid-column: full-start / col-end 5;
+  background-color: $color-grey-light-2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+  &__detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+
+    @include respond(tab-port) {
+      flex-direction: column;
+    }
+  }
+
+  &__icon {
+    width: 15%;
+    color: $color-primary-dark;
+
+    display: flex;
+    justify-content: center;
+
+    @include respond(tab-port) {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__key {
+    width: 20%;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    display: flex;
+    justify-content: flex-start;
+
+    @include respond(tab-port) {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__value {
+    width: 15%;
+    font-weight: 500;
+    color: $color-primary-medium;
+    margin-left: 1.5rem;
+
+    display: flex;
+    justify-content: flex-start;
+
+    @include respond(tab-port) {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      margin-left: 0;
+    }
+  }
+}
+
+// Section guides tour
+.section-guides-tour {
+  grid-column: col-end 5 / full-end;
+  background-color: $color-grey-dark-1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__detail {
+    width: 100%;
+    margin-bottom: 2.25rem;
+  }
+
+  &__user {
+    display: flex;
+
+    @include respond(tab-port) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__box-img {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0.5rem;
+
+    @include respond(tab-port) {
+      justify-content: center;
+    }
+  }
+
+  &__img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+  }
+
+  &__user-detail {
+    display: flex;
+    align-items: center;
+    font-size: 1.7rem;
+    width: 100%;
+    margin-left: 0.5rem;
+
+    @include respond(tab-port) {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    & p:first-child {
+      font-weight: 700;
+      text-transform: uppercase;
+      width: 40%;
+
+      @include respond(tab-port) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Section pictures tour
+.section-pictures-tour {
+  grid-column: center-start / center-end;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 8vw);
+  gap: 1.5rem;
+  padding: 3.5rem;
+
+  @include respond(tab-land) {
+    grid-template-rows: repeat(2, 20vw);
+  }
+
+  @include respond(phone) {
+    grid-template-rows: repeat(3, 30vw);
+  }
+
+  &__picture {
+    &--1 {
+      grid-column: 1 / span 2;
+      grid-row: 1 / -1;
+    }
+
+    &--2 {
+      grid-column: 3 / -1;
+      grid-row: 1 / 3;
+    }
+
+    &--3 {
+      grid-column: 3 / -1;
+      grid-row: 3 / -1;
+    }
+
+    @include respond(tab-land) {
+      &--1 {
+        grid-row: 1 / 3;
+      }
+
+      &--2 {
+        grid-row: 1 / 2;
+      }
+
+      &--3 {
+        grid-row: 2 / -1;
+      }
+    }
+
+    @include respond(phone) {
+      &--1 {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+      }
+
+      &--2 {
+        grid-column: 1 / -1;
+        grid-row: 2 / 3;
+      }
+
+      &--3 {
+        grid-column: 1 / -1;
+        grid-row: 3 / 4;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Section map tour
+.section-map-tour {
+  grid-column: full-start / full-end;
+
+  position: relative;
+  height: 50rem;
+
+  #map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+.marker {
+  background-image: url('../images/marker.svg');
+  background-size: cover;
+  width: 3.2rem;
+  height: 4rem;
+  cursor: pointer;
+}
+
+.mapboxgl-popup {
+  max-width: 25rem;
+}
+
+// Section reviews tour
+.section-reviews-tour {
+  grid-column: full-start / full-end;
+
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba($color-primary-light, 0.8),
+    rgba($color-primary-dark, 0.8)
+  );
+  padding: 10rem 5rem;
+
+  &__reviews {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 5rem;
+
+    overflow-x: scroll;
+    -ms-scroll-snap-type: x mandatory;
+    scroll-snap-type: x mandatory;
+    padding: 5rem 0;
+  }
+
+  &__review {
+    width: 35rem;
+    height: 30.5rem;
+    background-color: $color-grey-light-1;
+    padding: 4rem;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+    font-size: 1.5rem;
+    border-radius: 0.4rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '\201C';
+      position: absolute;
+      top: -19.5rem;
+      left: -3rem;
+      font-size: 40rem;
+      font-weight: 300;
+      color: $color-grey-light-3;
+      z-index: 0;
+    }
+  }
+
+  &__text {
+    margin-bottom: 2rem;
+    font-style: italic;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__user-review {
+    display: flex;
+    align-items: center;
+  }
+
+  &__user-img {
+    height: 4.5rem;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+  }
+
+  &__user-box {
+  }
+
+  &__user-name {
+  }
+
+  &__user-ratings {
+  }
+
+  &__user-rating {
+    &--active {
+      color: $color-primary-dark;
+    }
+
+    &--inactive {
+      color: $color-grey-dark-3;
+    }
+  }
+}
+
+// Section booking tour
+.section-booking-tour {
+  grid-column: full-start / full-end;
+
+  background-color: $color-grey-light-2;
+  padding: 10rem 5rem;
+
+  &__cta {
+    background-color: $color-grey-light-1;
+    position: relative;
+    max-width: 110rem;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 9rem 5rem 9rem 28rem;
+    border-radius: 2rem;
+    box-shadow: 0 3rem 8rem 0.5rem rgba(0, 0, 0, 0.15);
+
+    @include respond(phone) {
+      padding: 20rem 2.5rem 5rem 2.5rem;
+    }
+  }
+
+  &__img {
+    height: 18rem;
+    width: 18rem;
+    position: absolute;
+    left: 4.5rem;
+    top: 50%;
+    border-radius: 50%;
+    box-shadow: 1rem 0.5rem 3rem rgba(0, 0, 0, 0.15);
+
+    @include respond(phone) {
+      left: 4.5rem;
+      top: 9rem;
+    }
+
+    &--logo {
+      background: linear-gradient(
+        to right bottom,
+        rgba($color-grey-light-1, 1),
+        rgba($color-grey-light-4, 1)
+      );
+      z-index: 10;
+      transform: translate(-35%, -50%);
+      padding: 2rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    &--1 {
+      transform: translate(-10%, -50%) scale(0.97);
+      z-index: 9;
+    }
+
+    &--2 {
+      transform: translate(15%, -50%) scale(0.94);
+      z-index: 8;
+    }
+  }
+
+  &__content {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr auto;
+    gap: 0.7rem;
+    grid-auto-flow: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    @include respond(tab-port) {
+      grid-auto-flow: row;
+      grid-template-rows: none;
+      grid-template-columns: none;
+      row-gap: 1rem;
+      justify-content: center;
+    }
+
+    @include respond(phone) {
+      margin-left: 0;
+      row-gap: 1.5rem;
+    }
+  }
+
+  &--span-all-row {
+    grid-row: 1 / -1;
+
+    @include respond(tab-port) {
+      grid-row: auto;
+      max-width: 40vw;
+    }
+
+    @include respond(phone) {
+      max-width: 100vw;
+    }
+  }
+}

@@ -1,0 +1,66 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 1.5rem 3.5rem;
+    font-size: 2rem;
+    letter-spacing: 0.4rem;
+    transition: all 0.3s;
+    background-color: $color-grey-light-1;
+    color: $color-grey-dark-1;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &--lower {
+    text-transform: unset;
+  }
+
+  &--shadow {
+    box-shadow: 0 0.5rem 1rem rgba($color-primary-light, 0.3);
+
+    &:active,
+    &:focus {
+      box-shadow: 0 1.5rem 2rem rgba($color-primary-light, 0.3);
+    }
+  }
+
+  &--small {
+    font: {
+      size: 1.6rem !important;
+      weight: 900 !important;
+    }
+    padding: 1.5rem 2.5rem !important;
+    letter-spacing: 0.2rem !important;
+  }
+
+  &--color-primary {
+    background-color: $color-primary-dark !important;
+    color: $color-grey-light-1 !important;
+  }
+
+  &--border {
+    border: 0.1rem solid $color-grey-dark-3;
+    font-weight: 500;
+  }
+
+  &--login {
+    @include respond(tab-port) {
+      font-size: 1.6rem;
+    }
+
+    @include respond(phone) {
+      font-size: 1.4rem;
+      padding: 1.5rem 2.5rem;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+doctype html
+html(lang='en')
+    head
+        block head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='shortcut icon', href='/images/favicon.ico', type='image/png')
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css")
+        link(rel='stylesheet', href='/css/main.min.css')
+        title Touradesert | #{title}
+    body.container
+        
+        // Navigation
+        include _navigation
+        
+        // Content
+        block content
+            // Overview
+            section.overview
+
+                // Header
+                header.header
+                    img(src="images/header-1.png", alt="header-1" class='header__img header__img--1')
+                    img(src="images/header-2.png", alt="header-2" class='header__img header__img--2')
+                    img(src="images/header-3.png", alt="header-3" class='header__img header__img--3')
+                    img(src="images/header-4.png", alt="header-4" class='header__img header__img--4')
+
+                // Section About
+                section.section-about
+                    h1.heading-primary.heading-primary--dark.heading-primary--text-wrap.heading-primary--italic.mr-l Morocco desert tours for adventurous people
+                    h2.heading-tertiary.heading-tertiary--dark.heading-tertiary--upper.text-right Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil?
+                    .shape &nbsp;
+
+
+        // Footer
+        include _footer
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js")
+        script(src="/js/mapbox.js")
+        script(src="/js/login.js")
+
