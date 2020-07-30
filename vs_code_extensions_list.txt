@@ -1,0 +1,53 @@
+adpyke.codesnap
+bierner.emojisense
+CoenraadS.bracket-pair-colorizer
+dbaeumer.vscode-eslint
+dhedgecock.radical-vscode
+eamodio.gitlens
+ecmel.vscode-html-css
+esbenp.prettier-vscode
+formulahendry.auto-rename-tag
+gerane.Theme-Brogrammer
+golang.go
+humao.rest-client
+kuscamara.electron
+mikestead.dotenv
+monokai.theme-monokai-pro-vscode
+mrmlnc.vscode-pugbeautify
+octref.vetur
+oderwat.indent-rainbow
+PKief.material-icon-theme
+ritwickdey.live-sass
+ritwickdey.LiveServer
+streetsidesoftware.code-spell-checker
+wesbos.theme-cobalt2
+xabikos.JavaScriptSnippets
+
+{
+  "editor.fontSize": 24,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveSassCompile.settings.generateMap": false,
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "compressed",
+      "extensionName": ".min.css",
+      "savePath": "public/css"
+    }
+  ],
+  "css.remoteStyleSheets": [],
+  "editor.formatOnSave": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleQuote": true,
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Electron",
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "workbench.iconTheme": "material-icon-theme",
+  "cSpell.userWords": [
+    "Middlewares",
+    "Razine",
+    "browserslist",
+    "minlenght",
+    "tarik"
+  ],
+  "liveSassCompile.settings.autoprefix": []
+}
