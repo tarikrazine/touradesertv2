@@ -4,7 +4,6 @@ block append head
     script(src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js')
     link(href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet')
 
-
 block content
     // Tour
     main.tour
@@ -14,7 +13,7 @@ block content
         section.section-header-tour
             .section-header-tour__hero
                 .section-header-tour__hero-overlay &nbsp;
-                img.section-header-tour__hero-img(src='/images/tour-cover-1.jpg', alt=`${tour.name}`)
+                img.section-header-tour__hero-img(src=`/images/tours/${tour.imageCover}`, alt=`${tour.name}`)
 
             h1.heading-primary.heading-primary--tour.heading-primary--light
                 span= tour.name
@@ -70,7 +69,7 @@ block content
                 figure.section-guides-tour__detail
                     figcaption.section-guides-tour__user
                         .section-guides-tour__box-img
-                            img.section-guides-tour__img(src='/images/user-tour.jpeg' alt=`${guide.name}`)
+                            img.section-guides-tour__img(src=`/images/users/${guide.photo}`, alt=`${guide.name}`)
                         .section-guides-tour__user-detail
 
                             - const role = guide.role === 'lead-guide' ? `${guide.role.toLowerCase().split('-')[0]} guide` : `tour ${guide.role}`
@@ -81,7 +80,7 @@ block content
         section.section-pictures-tour
             each img, i in tour.images
                 figure.section-pictures-tour__picture(class=`section-pictures-tour__picture--${i + 1}`)
-                    img.section-pictures-tour__img(src=`/images/image-${i + 1}.jpg`, alt=`${tour.name}`)
+                    img.section-pictures-tour__img(src=`/images/tours/${img}`, alt=`${tour.name}`)
 
         section.section-map-tour
             #map(data-locations=`${JSON.stringify(tour.locations)}`)
@@ -94,7 +93,7 @@ block content
                     figure.section-reviews-tour__review
                         blockquote.section-reviews-tour__text= review.review
                         figcaption.section-reviews-tour__user-review
-                            img.section-reviews-tour__user-img(src=`/images/user-tour.jpeg`, alt=`${review.user.name}`)
+                            img.section-reviews-tour__user-img(src=`/images/users/${review.user.photo}`, alt=`${review.user.name}`)
                             .section-reviews-tour__user-box
                                 p.section-reviews-tour__user-name= review.user.name
                         .section-reviews-tour__user-ratings
@@ -105,10 +104,13 @@ block content
             .section-booking-tour__cta
                 .section-booking-tour__img.section-booking-tour__img--logo
                     img(src="/images/logo.svg", alt="Logo")
-                img.section-booking-tour__img.section-booking-tour__img--1(src="/images/image-1.jpg", alt="Image")
-                img.section-booking-tour__img.section-booking-tour__img--2(src="/images/image-2.jpg", alt="Image")
+                img.section-booking-tour__img.section-booking-tour__img--1(src=`/images/tours/${tour.images[0]}`, alt="Image")
+                img.section-booking-tour__img.section-booking-tour__img--2(src=`/images/tours/${tour.images[1]}`, alt="Image")
 
                 .section-booking-tour__content
                     h2.heading-secondary.heading-secondary--color-primary-dark What are you waiting for
                     p.paragraph.paragraph--large= `${tour.duration} days. 1 adventure. Infinity memories. Make it your today!`
-                    button.btn.btn--color-primary.section-booking-tour--span-all-row Book tour now!
+                    if user 
+                        button(data-tour-id=`${tour.id}`)#book-tour.btn.btn--color-primary.section-booking-tour--span-all-row Book tour now!
+                    else 
+                        a(href=`/login`).btn.btn--color-primary.section-booking-tour--span-all-row Log in to book tour

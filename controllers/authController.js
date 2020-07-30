@@ -4,11 +4,40 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const sendEmail = require('../utils/email');
+const Email = require('../utils/email');
 
 const signToken = (id) => {
   return jwt.sign({ id: id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+};
+
+const createSendToken = (user, statusCode, res) => {
+  // Create token
+  const token = signToken(user._id);
+
+  // Cookie Options
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  if (process.env.ENV_NODE === 'production') cookieOptions.secure = true;
+
+  // Send cookie
+  res.cookie('jwt', token, cookieOptions);
+
+  // Remove the password from the output
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user,
+    },
   });
 };
 
@@ -21,29 +50,11 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
 
-  const token = signToken(newUser._id);
+  const url = `${req.protocol}://${req.get('host')}/me`;
 
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
+  await new Email(newUser, url).sendWelcome();
 
-  if (process.env.ENV_NODE === 'production') cookieOptions.secure = true;
-
-  res.cookie('jwt', token, cookieOptions);
-
-  // Remove the password from the output
-  newUser.password = undefined;
-
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user: newUser,
-    },
-  });
+  createSendToken(newUser, 201, res);
 });
 
 // Log in user
@@ -62,25 +73,18 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password!', 401));
   }
 
-  // Send a token to client if everything is ok!
-  const token = signToken(user._id);
-
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-
-  if (process.env.ENV_NODE === 'production') cookieOptions.secure = true;
-
-  res.cookie('jwt', token, cookieOptions);
-
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+  createSendToken(user, 200, res);
 });
+
+// Log out
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+
+  res.status(200).json({ status: 'success' });
+};
 
 // Protecting routes
 exports.protect = catchAsync(async (req, res, next) => {
@@ -124,37 +128,42 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   req.user = existUser;
+  res.locals.user = existUser;
   // Grant access to protected route
   next();
 });
 
 // Only for rendered pages, no errors!
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  if (req.cookies.jwt) {
-    // Verification token
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET
-    );
+exports.isLoggedIn = async (req, res, next) => {
+  try {
+    if (req.cookies.jwt) {
+      // Verification token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
 
-    // Check if user still exists
-    const currentUser = await User.findById(decoded.id);
+      // Check if user still exists
+      const currentUser = await User.findById(decoded.id);
 
-    if (!currentUser) next();
+      if (!currentUser) next();
 
-    // Check if user changed the password after the token was issued
-    if (currentUser.changedPasswordAfter(decoded.iat)) {
+      // Check if user changed the password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      // There is a logged in user
+      res.locals.user = currentUser;
+      // Grant access to protected route
       return next();
     }
-
-    // There is a logged in user
-    res.locals.user = currentUser;
-    // Grant access to protected route
+  } catch (err) {
     return next();
   }
 
   next();
-});
+};
 
 // Permissions
 exports.restrictTo = (...roles) => {
@@ -183,19 +192,13 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
 
-  // Send it to user's email
-  const resetURL = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/resetPassword/${resetToken}`;
-
-  const message = `Forget your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}\nIf you didn't forgot your password, please ignore this email.`;
-
   try {
-    await sendEmail({
-      email: user.email,
-      subject: 'Your password reset token (valid for 10min)',
-      text: message,
-    });
+    // Send it to user's email
+    const resetURL = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/users/resetPassword/${resetToken}`;
+
+    await new Email(user, resetURL).sendResetPassword();
 
     res.status(200).json({
       status: 'success',
@@ -245,25 +248,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   // Update changePasswordAt property for the user
-  // log the user in, send JWT
-  const token = signToken(user._id);
-
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-
-  if (process.env.ENV_NODE === 'production') cookieOptions.secure = true;
-
-  res.cookie('jwt', token, cookieOptions);
-
-  res.status(200).json({
-    status: 'success',
-    token,
-    message: 'Password modified with success.',
-  });
+  createSendToken(user, 200, res);
 });
 
 // Update user password
@@ -280,24 +265,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
+  // User.findByIdAndUpdate will NOT work as intended!
 
-  // Log user in, and send JWT
-  const token = signToken(user._id);
-
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-
-  if (process.env.ENV_NODE === 'production') cookieOptions.secure = true;
-
-  res.cookie('jwt', token, cookieOptions);
-
-  res.status(200).json({
-    status: 'success',
-    token,
-    message: 'Password Updated with success.',
-  });
+  createSendToken(user, 200, res);
 });

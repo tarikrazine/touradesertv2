@@ -9,12 +9,30 @@
     &--link {
       align-items: flex-end;
     }
+
+    &--photo-upload {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   &__label {
-    font-size: 1.5rem;
-    font-weight: 500;
     color: $color-grey-dark-1;
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+
+    &--upload {
+      color: $color-primary-dark;
+      display: inline-block;
+      text-decoration: none;
+      border-bottom: 1px solid $color-primary-dark;
+      padding: 3px;
+      -webkit-transition: all 0.2s;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
   }
 
   &__input {
@@ -50,5 +68,21 @@
     display: inline-block;
     text-decoration: none;
     font-size: 1.5rem;
+  }
+
+  &__user-photo {
+    height: 7.5rem;
+    width: 7.5rem;
+    border-radius: 50%;
+    margin-right: 2rem;
+  }
+
+  &__upload {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
   }
 }

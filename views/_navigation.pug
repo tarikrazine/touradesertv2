@@ -22,9 +22,9 @@ nav.navigation
 
         nav.navigation__user 
             if user
-                a.navigation__log Log out
-                a.navigation__log.navigation__log--profile(href='/profile')
-                    img.navigation__log--img(src=`${'/images/user-tour.jpeg'}`, alt=`${user.name}`)
+                a#logout.navigation__log Log out
+                a.navigation__log.navigation__log--profile(href='/me')
+                    img.navigation__log--img(src=`/images/users/${user.photo}`, alt=`${user.name}`)
                     span= `${user.name.split(' ')[0]}`
             else
                 a.navigation__log.navigation__log--log-in(href='/login') Log in

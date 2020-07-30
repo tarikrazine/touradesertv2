@@ -1,0 +1,58 @@
+extends base
+
+mixin menuItem(link, icon, name, active)
+    li(class=`${active ? 'user-menu__item user-menu__item--active' : 'user-menu__item'}`)
+        a.user-menu__link(href=`${link}`)
+            i(class=`fas ${icon} fa-1x user-menu__icon`)
+            span #{name}
+
+block content
+    main.me
+        section.user-view
+            nav.user-menu
+                ul.user-menu__list
+                    if user.role == 'admin'
+                        h3.heading-tertiary.heading-primary--light.heading-tertiary--me Admin
+                        .line.line--small &nbsp;
+                        +menuItem('#', 'fa-map', 'Manage tours')
+                        +menuItem('#', 'fa-users', 'Manage users')
+                        +menuItem('#', 'fa-star', 'Manage reviews')
+                        +menuItem('#', 'fa-briefcase', 'Manage bookings')
+                        .line.line--small &nbsp;
+                    +menuItem('#', 'fa-user-cog', 'Settings', true)
+                    +menuItem('/my-tours', 'fa-suitcase', 'My bookings')
+                    +menuItem('#', 'fa-star', 'My reviews')
+                    +menuItem('#', 'fa-credit-card', 'Billing')
+            .user-content
+                .user-content__form-container
+                    h2.heading-secondary.heading-secondary--color-primary-dark.text-center.mb-md Your account settings
+                    form#form-profile.form
+                        .form__group.mb-md
+                            label.form__label(for='name') Name
+                            input#name.form__input(type='text', value=`${user.name}`, name='name' required)
+                        .form__group.mb-md
+                            label.form__label(for='email') Email address
+                            input#email.form__input(type='email', value=`${user.email}`, name='email' required)
+                        .form__group.form__group--photo-upload.mb-md
+                            img(src=`/images/users/${user.photo}`, alt=`${user.name}`, class='form__user-photo')
+                            input#photo.form__upload(type='file',accept='image/*', name='photo')
+                            label.form__label.form__label--upload(for='photo') Choose new photo
+                        .form__group.mb-md
+                            button.btn.btn--medium.btn--color-primary.btn--lower Save settings
+
+                .line &nbsp;
+                
+                .user-content__form-container
+                    h2.heading-secondary.heading-secondary--color-primary-dark.text-center.mb-md Password change
+                    form#form-password.form
+                        .form__group.mb-md
+                            label.form__label(for='currentPassword') Current password
+                            input#currentPassword.form__input(type='password', placeholder='••••••••', minlenght="8", required)
+                        .form__group.mb-md
+                            label.form__label(for='password') New password
+                            input#password.form__input(type='password', placeholder='••••••••', minlenght="8", required)
+                        .form__group.mb-md
+                            label.form__label(for='confirmPassword') Confirm password
+                            input#confirmPassword.form__input(type='password', placeholder='••••••••', minlenght="8", required)
+                        .form__group.mb-md
+                            button.btn.btn--medium.btn--color-primary.btn--lower.btn--password-save Save password

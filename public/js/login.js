@@ -1,10 +1,10 @@
 /* eslint-disable */
 
-// Get login form
-const form = document.querySelector('.form');
+import axios from 'axios';
+import { showAlert } from './alert';
 
 // Function to send data to the api login
-const login = async (email, password) => {
+export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -16,22 +16,15 @@ const login = async (email, password) => {
     });
 
     if (res.data.status === 'success') {
-      console.log(res.data.message);
+      // Show alert after login complete
+      showAlert('Your are log in with success!', 'success');
+
+      // Go to home page after 1500
       setTimeout(() => {
         location.assign('/');
       }, 1500);
     }
   } catch (err) {
-    console.log(err.response.data.message);
+    showAlert(err.response.data.message, 'error');
   }
 };
-
-// addListener to the form login
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const email = form.email.value;
-  const password = form.password.value;
-
-  login(email, password);
-});

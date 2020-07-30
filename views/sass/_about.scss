@@ -1,11 +1,15 @@
 .section-about {
-  grid-column: col-end 6 / full-end;
+  grid-column: full-start / col-end 2;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-right: 1rem;
   position: relative;
+
+  &__heading {
+    margin-left: 2rem;
+  }
 }
 
 .shape {

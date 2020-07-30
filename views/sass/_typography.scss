@@ -185,6 +185,11 @@
       );
     }
   }
+
+  &--me {
+    font-size: 2rem !important;
+    padding: 0 1.5rem;
+  }
 }
 
 .paragraph {

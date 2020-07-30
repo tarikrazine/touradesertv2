@@ -1,0 +1,113 @@
+.me {
+  grid-column: full-start / full-end;
+}
+
+.user-view {
+  display: flex;
+
+  @include respond(phone) {
+    flex-direction: column;
+  }
+}
+
+.user-menu {
+  flex: 0 0 25%;
+
+  background-image: linear-gradient(
+    to right,
+    rgba($color-primary-light, 0.9),
+    rgba($color-primary-dark, 0.9)
+  );
+  padding: 4rem 0;
+
+  @include respond(phone) {
+    flex: unset;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    position: relative;
+    margin: 1rem 0;
+    color: $color-grey-light-1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $color-grey-light-1;
+      height: 100%;
+      width: 1%;
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform 0.3s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.3s;
+    }
+
+    &:hover,
+    &--active {
+      color: $color-grey-dark-1 !important;
+    }
+
+    &:hover::before,
+    &--active::before {
+      transform: scaleY(1);
+      width: 100%;
+    }
+
+    &:active::before {
+      background-color: $color-grey-light-2;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    padding: 1rem 4rem;
+    align-items: center;
+    color: currentColor;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+
+    @include respond(tab-port) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__icon {
+    margin-right: 1rem;
+  }
+}
+
+.user-content {
+  flex: 1;
+
+  padding: 7rem 0;
+  background-color: $color-white;
+
+  &__form-container {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 0 8rem;
+  }
+}
+
+.line {
+  margin: 6rem 0;
+  width: 100%;
+  height: 1px;
+  background-color: #e0e0e0;
+
+  &--small {
+    margin: unset;
+  }
+}

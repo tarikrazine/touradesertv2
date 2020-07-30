@@ -1,0 +1,34 @@
+.error {
+  grid-column: center-start / center-end;
+
+  height: 60rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__message {
+    margin-top: 2rem;
+
+    @include respond(tab-land) {
+      margin-bottom: 2.5rem;
+    }
+
+    @include respond(phone) {
+      margin-top: 3.5rem;
+      margin-bottom: unset;
+    }
+  }
+}
+
+.image-box {
+  height: 50rem;
+  margin-bottom: 2rem;
+
+  &__image {
+    height: 100%;
+    width: 100%;
+    //object-fit: cover;
+  }
+}

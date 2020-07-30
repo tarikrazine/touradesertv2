@@ -1,0 +1,13 @@
+extends base
+
+block content
+    main.error
+        if message
+            h2.heading-secondary.heading-secondary--dark.text-center.error__message= `${message}`
+        .image-box
+            if code == '404'
+                img(src="/images/404.svg", alt="Error Image" class='image-box__image')
+            else if code == '400'
+                img(src="/images/400.svg", alt="Error Image" class='image-box__image')
+            else 
+                img(src="/images/error.svg", alt="Error Image" class='image-box__image')

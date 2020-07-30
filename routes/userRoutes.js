@@ -1,4 +1,5 @@
 const express = require('express');
+
 const {
   getAllUsers,
   addUser,
@@ -8,6 +9,8 @@ const {
   getMe,
   updateMe,
   deleteMe,
+  uploadUserPhoto,
+  resizeUserPhoto,
 } = require('../controllers/userController');
 const {
   signup,
@@ -17,6 +20,7 @@ const {
   resetPassword,
   protect,
   updatePassword,
+  logout,
 } = require('../controllers/authController');
 
 const router = express.Router();
@@ -24,6 +28,7 @@ const router = express.Router();
 // Signup And log in routes
 router.post('/signup', signup);
 router.post('/login', login);
+router.get('/logout', logout);
 
 // Forget and reset routes
 router.post('/forgotPassword', forgotPassword);
@@ -34,7 +39,7 @@ router.use(protect);
 
 // Current users routes
 router.get('/me', getMe, getUser);
-router.patch('/updateMe', updateMe);
+router.patch('/updateMe', uploadUserPhoto, resizeUserPhoto, updateMe);
 router.patch('/updateMyPassword', updatePassword);
 router.delete('/deleteMe', deleteMe);
 

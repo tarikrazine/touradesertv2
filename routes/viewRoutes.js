@@ -5,20 +5,26 @@ const {
   getAllTours,
   getTour,
   getLoginForm,
+  getMe,
+  getMyTours,
 } = require('../controllers/viewController');
 
-const { isLoggedIn } = require('../controllers/authController');
+const { isLoggedIn, protect } = require('../controllers/authController');
+
+const { createBookingCheckout } = require('../controllers/bookingController');
 
 const router = express.Router();
 
-router.use(isLoggedIn);
+router.get('/', createBookingCheckout, isLoggedIn, getOverview);
 
-router.get('/', getOverview);
+router.get('/tours', isLoggedIn, getAllTours);
 
-router.get('/tours', getAllTours);
+router.get('/tour/:slug', isLoggedIn, getTour);
 
-router.get('/tour/:slug', getTour);
+router.get('/login', isLoggedIn, getLoginForm);
 
-router.get('/login', getLoginForm);
+router.get('/me', protect, getMe);
+
+router.get('/my-tours', protect, getMyTours);
 
 module.exports = router;

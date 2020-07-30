@@ -43,6 +43,11 @@
     letter-spacing: 0.2rem !important;
   }
 
+  &--medium {
+    width: 65%;
+    margin: 0 auto;
+  }
+
   &--color-primary {
     background-color: $color-primary-dark !important;
     color: $color-grey-light-1 !important;

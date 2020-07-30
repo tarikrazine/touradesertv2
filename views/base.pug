@@ -18,6 +18,12 @@ html(lang='en')
             // Overview
             section.overview
 
+                // Section About
+                section.section-about
+                    h1.heading-primary.heading-primary--dark.heading-primary--text-wrap.heading-primary--italic.section-about__heading Morocco desert tours for adventurous people
+                    h2.heading-tertiary.heading-tertiary--dark.heading-tertiary--upper.text-right Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil?
+                    .shape &nbsp;
+
                 // Header
                 header.header
                     img(src="images/header-1.png", alt="header-1" class='header__img header__img--1')
@@ -25,17 +31,11 @@ html(lang='en')
                     img(src="images/header-3.png", alt="header-3" class='header__img header__img--3')
                     img(src="images/header-4.png", alt="header-4" class='header__img header__img--4')
 
-                // Section About
-                section.section-about
-                    h1.heading-primary.heading-primary--dark.heading-primary--text-wrap.heading-primary--italic.mr-l Morocco desert tours for adventurous people
-                    h2.heading-tertiary.heading-tertiary--dark.heading-tertiary--upper.text-right Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil?
-                    .shape &nbsp;
 
 
         // Footer
         include _footer
 
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js")
-        script(src="/js/mapbox.js")
-        script(src="/js/login.js")
+        script(src='https://js.stripe.com/v3/')
+        script(src='/js/bundle.js')
 

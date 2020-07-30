@@ -134,6 +134,7 @@
       font-weight: 600;
       transition: all 0.2s ease-in-out;
       cursor: pointer;
+      color: currentColor;
 
       @include respond(phone) {
         font-size: 1.4rem;
