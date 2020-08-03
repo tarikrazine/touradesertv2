@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -79,6 +80,8 @@ app.use((req, res, next) => {
   //console.log(req.cookies);
   next();
 });
+
+app.use(compression());
 
 // Routes
 app.use('/', viewRouter);

@@ -180,11 +180,11 @@ tourSchema.pre(/^find/, function (next) {
 });
 
 // Query middleware: runs AFTER
-tourSchema.post(/^find/, function (docs, next) {
+/* tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query took ${this.start - Date.now()} Milliseconds!`);
   //console.log(docs);
   next();
-});
+}); */
 
 // Aggregation middleware: runs BEFORE
 /* tourSchema.pre('aggregate', function (next) {

@@ -37,7 +37,7 @@ const sendErrorDev = (err, req, res) => {
   }
 
   // Log error
-  console.error('Error!!!', err);
+  console.error('Error!!! 🚨', err);
 
   // Rendered website
   return res.status(err.statusCode).render('error', {
@@ -59,7 +59,7 @@ const sendErrorProd = (err, req, res) => {
       // Programming or other unknown error: don't leak error details
     }
     // Log error
-    console.error('Error!!!', err);
+    console.error('Error!!! 🚨', err);
 
     // Send generic message
     return res.status(500).json({
