@@ -6,7 +6,7 @@ export const hideElement = () => {
   if (alertDiv) alertDiv.remove();
 };
 
-export const showAlert = (msg, type) => {
+export const showAlert = (msg, type, time = 7) => {
   hideElement();
 
   const alert = `<div class='alert alert--${type}'>${msg}</div>`;
@@ -14,5 +14,5 @@ export const showAlert = (msg, type) => {
 
   setTimeout(() => {
     hideElement();
-  }, 5000);
+  }, time * 1000);
 };

@@ -6,6 +6,7 @@ import { logout } from './logout';
 import { profileUpdate } from './profile-update';
 import { passwordUpdate } from './password-update';
 import { bookTour } from './stripe';
+import { showAlert } from './alert';
 
 // DOM elements
 const mapBox = document.getElementById('map');
@@ -99,4 +100,11 @@ if (btnBook) {
 
     bookTour(tourID);
   });
+}
+
+// For success booking
+const alertMessage = document.querySelector('body').dataset.alert;
+
+if (alertMessage) {
+  showAlert(alertMessage, 'success', 20);
 }
