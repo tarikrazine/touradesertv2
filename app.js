@@ -9,6 +9,7 @@ const hpp = require('hpp');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const bodyParser = require('body-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -57,10 +58,13 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Webhook checkout stripe route
-app.post('/webhook-checkout', webhookCheckout);
+app.post(
+  '/webhook-checkout',
+  bodyParser.raw({ type: 'application/json' }),
+  webhookCheckout
+);
 
 // Body parser, reading data from body into req.body
-app.use(express.raw({ limit: '10kb', type: 'application/json' }));
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
