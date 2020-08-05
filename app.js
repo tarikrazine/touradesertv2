@@ -20,6 +20,8 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 
+const { webhookCheckout } = require('./controllers/bookingController');
+
 const app = express();
 
 app.enable('trust proxy');
@@ -54,7 +56,11 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+// Webhook checkout stripe route
+app.post('/webhook-checkout', webhookCheckout);
+
 // Body parser, reading data from body into req.body
+app.use(express.raw({ limit: '10kb', type: 'application/json' }));
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
