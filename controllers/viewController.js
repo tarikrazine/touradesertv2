@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.getOverview = (req, res) => {
-  res.status(200).render('base', {
+  res.status(200).render('tours', {
     title: 'Morocco desert tours for adventurous people',
   });
 };
