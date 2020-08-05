@@ -6,10 +6,10 @@ export const hideElement = () => {
   if (alertDiv) alertDiv.remove();
 };
 
-export const showAlert = (msg, type, time = 7) => {
+export const showAlert = (msg, type, time = 7, booking = '') => {
   hideElement();
 
-  const alert = `<div class='alert alert--${type}'>${msg}</div>`;
+  const alert = `<div class='alert ${booking} alert--${type}'>${msg}</div>`;
   document.querySelector('body').insertAdjacentHTML('afterbegin', alert);
 
   setTimeout(() => {

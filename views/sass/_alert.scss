@@ -25,3 +25,11 @@
     background-color: crimson;
   }
 }
+
+.booking {
+  top: 11rem !important;
+
+  @include respond(phone) {
+    top: 21rem !important;
+  }
+}
